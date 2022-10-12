@@ -1,0 +1,64 @@
+libyuv (0.0~git20220427.de71c67-1+u001) UNRELEASED; urgency=medium
+
+  * update
+
+ -- Debian Multimedia Maintainers <debian-multimedia@lists.debian.org>  Fri, 27 May 2022 13:42:50 +0800
+
+libyuv (0.0~git20220427.de71c67-1) unstable; urgency=medium
+
+  * New upstream snapshot 20220427 (version 1823).
+  * debian/libyuv0.shlibs: Tighten version requirement to latest.
+
+ -- Boyuan Yang <byang@debian.org>  Fri, 29 Apr 2022 20:31:51 -0400
+
+libyuv (0.0~git20220407.2ad7373-1) unstable; urgency=medium
+
+  * New upstream snapshot 20220407 (version 1818).
+  * debian/libyuv0.shlibs: Tighten version requirement to latest.
+  * debian/copyright: Update information.
+
+ -- Boyuan Yang <byang@debian.org>  Mon, 11 Apr 2022 14:58:12 -0400
+
+libyuv (0.0~git20220316.3aebf69-1) unstable; urgency=medium
+
+  * New upstream snapshot 20220316 (version 1813).
+  * debian/libyuv0.shlibs: Tighten version requirement to latest.
+
+ -- Boyuan Yang <byang@debian.org>  Wed, 16 Mar 2022 20:10:37 -0400
+
+libyuv (0.0~git20220104.b91df1a-2) unstable; urgency=medium
+
+  * debian/control: Correctly mark package libyuv-dev as in
+    section: libdevel.
+
+ -- Boyuan Yang <byang@debian.org>  Wed, 23 Feb 2022 10:15:09 -0500
+
+libyuv (0.0~git20220104.b91df1a-1) unstable; urgency=medium
+
+  * New upstream snapshot 20220104 (version 1807).
+  * debian/libyuv0.shlibs: Tighten version requirement to latest.
+
+ -- Boyuan Yang <byang@debian.org>  Fri, 07 Jan 2022 17:06:29 -0500
+
+libyuv (0.0~git20211210.fdc7195-1) unstable; urgency=medium
+
+  * New upstream snapshot 20211210 (version 1806).
+  * debian/libyuv0.shlibs: Tighten version requirement to latest.
+
+ -- Boyuan Yang <byang@debian.org>  Sat, 11 Dec 2021 00:11:16 -0500
+
+libyuv (0.0~git20211126.63ce1d0-1) unstable; urgency=medium
+
+  * New upstream snapshot 20211126 (version 1805).
+  * debian/libyuv0.shlibs: Tighten version requirement to latest.
+  * debian/patches/0001: Try to automatically parse upstream version.
+  * debian/control: Let libyuv0 Conflicts+Replaces+Provides libyuv
+    to handle upstream CPack-generated deb packages.
+
+ -- Boyuan Yang <byang@debian.org>  Sat, 04 Dec 2021 18:12:55 -0500
+
+libyuv (0.0~git20210909.ed5a9c8-1) unstable; urgency=medium
+
+  * Initial release.
+
+ -- Boyuan Yang <byang@debian.org>  Mon, 23 Aug 2021 08:58:59 -0400

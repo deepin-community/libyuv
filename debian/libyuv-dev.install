@@ -1,0 +1,3 @@
+usr/include/
+usr/lib/*/libyuv.a
+usr/lib/*/libyuv.so

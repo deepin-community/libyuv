@@ -1,0 +1,4 @@
+version=4
+opts="mode=git" \
+ https://chromium.googlesource.com/libyuv/libyuv \
+ HEAD debian uupdate
