@@ -1,8 +1,12 @@
-libyuv (0.0~git20220427.de71c67-1+u001) UNRELEASED; urgency=medium
+libyuv (0.0~git20220427.de71c67-1deepin) unstable; urgency=medium
 
+  [ Debian Multimedia Maintainers ]
   * update
 
- -- Debian Multimedia Maintainers <debian-multimedia@lists.debian.org>  Fri, 27 May 2022 13:42:50 +0800
+  [ Yutao Meng ]
+  * Regulate version name 
+
+ -- Yutao Meng <mengyutao@uniontech.com>  Mon, 20 Mar 2023 16:21:43 +0800
 
 libyuv (0.0~git20220427.de71c67-1) unstable; urgency=medium
 
