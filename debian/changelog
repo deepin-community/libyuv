@@ -1,12 +1,112 @@
-libyuv (0.0~git20220427.de71c67-1deepin) unstable; urgency=medium
+libyuv (0.0~git20231118.e6d5adb-1) unstable; urgency=medium
 
-  [ Debian Multimedia Maintainers ]
-  * update
+  * New upstream release 20231118.
 
-  [ Yutao Meng ]
-  * Regulate version name 
+ -- Boyuan Yang <byang@debian.org>  Sun, 26 Nov 2023 14:27:42 -0500
 
- -- Yutao Meng <mengyutao@uniontech.com>  Mon, 20 Mar 2023 16:21:43 +0800
+libyuv (0.0~git20230907.cbfb661-1) unstable; urgency=medium
+
+  * New upstream snapshot 20230907.
+
+ -- Boyuan Yang <byang@debian.org>  Fri, 15 Sep 2023 14:06:12 -0400
+
+libyuv (0.0~git20230616.a366ad7-2) unstable; urgency=medium
+
+  [ Vladimir Petko ]
+  * debian/tests/: Add autopkgtest using upstream testsuite.
+
+ -- Boyuan Yang <byang@debian.org>  Fri, 15 Sep 2023 04:41:31 -0400
+
+libyuv (0.0~git20230616.a366ad7-1) unstable; urgency=medium
+
+  * New upstream snapshot 20230616.
+  * debian/rules: Update UNIT_TEST flag name.
+  * debian/patches: Refresh patches.
+
+ -- Boyuan Yang <byang@debian.org>  Tue, 20 Jun 2023 13:44:03 -0400
+
+libyuv (0.0~git20230123.b2528b0-1) unstable; urgency=medium
+
+  * New upstream snapshot 20230123.
+
+ -- Boyuan Yang <byang@debian.org>  Sun, 12 Feb 2023 16:42:22 -0500
+
+libyuv (0.0~git20230104.6e4b0ac-1) unstable; urgency=medium
+
+  * New upstream snapshot 20230104.
+
+ -- Boyuan Yang <byang@debian.org>  Sat, 07 Jan 2023 11:07:37 -0500
+
+libyuv (0.0~git20221206.610e0cd-1~exp1) experimental; urgency=medium
+
+  * New upstream snapshot 20221206.
+
+ -- Boyuan Yang <byang@debian.org>  Sun, 11 Dec 2022 14:54:16 -0500
+
+libyuv (0.0~git20221118.ea26d7a-2) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Boyuan Yang <byang@debian.org>  Wed, 23 Nov 2022 13:44:31 -0500
+
+libyuv (0.0~git20221118.ea26d7a-1) experimental; urgency=medium
+
+  * New upstream snapshot 20221118.
+
+ -- Boyuan Yang <byang@debian.org>  Sun, 20 Nov 2022 14:22:05 -0500
+
+libyuv (0.0~git20221018.8084f0b-1) unstable; urgency=medium
+
+  * New upstream snapshot 20221018.
+    + Build yuvconstants tool.
+  * debian/patches: Add CMakeLists.txt patch to ensure yuvconstants
+    in installed after build.
+
+ -- Boyuan Yang <byang@debian.org>  Tue, 18 Oct 2022 16:09:17 -0400
+
+libyuv (0.0~git20220923.b9adaef-1) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Boyuan Yang <byang@debian.org>  Wed, 28 Sep 2022 16:07:45 -0400
+
+libyuv (0.0~git20220923.b9adaef-1~exp1) experimental; urgency=medium
+
+  * New upstream snapshot 20220923 (version 1845).
+  * debian/libyuv0.shlibs: Tighten minimum version requirement.
+  * debian/rules: Explicitly disable LTO. Enabling LTO will cause
+    the following test to fail:
+    - LibYUVPlanarTest.TestInterpolatePlane_16
+
+ -- Boyuan Yang <byang@debian.org>  Sat, 24 Sep 2022 20:14:11 -0400
+
+libyuv (0.0~git20220809.9b17af9-1) unstable; urgency=medium
+
+  * New upstream snapshot 20220809 (version 1838).
+  * debian/libyuv0.shlibs: Tighten minimum version requirement.
+
+ -- Boyuan Yang <byang@debian.org>  Thu, 11 Aug 2022 14:58:31 -0400
+
+libyuv (0.0~git20220714.fe8c78b-2) unstable; urgency=medium
+
+  * Disable tests on known broken architectures.
+
+ -- Boyuan Yang <byang@debian.org>  Wed, 27 Jul 2022 17:56:05 -0400
+
+libyuv (0.0~git20220714.fe8c78b-1) unstable; urgency=medium
+
+  * New upstream snapshot 20220714 (version 1833)
+  * debian/rules: Enable unit tests after build.
+  * debian/control: Bump Standards-Version to 4.6.1.
+  * debian/control: Add new build-dependency "googletest <!nocheck>".
+
+ -- Boyuan Yang <byang@debian.org>  Thu, 21 Jul 2022 10:55:26 -0400
+
+libyuv (0.0~git20220617.e906ba9-1) unstable; urgency=medium
+
+  * New upstream snapshot 20220617 (version 1829)
+
+ -- Boyuan Yang <byang@debian.org>  Sun, 19 Jun 2022 20:14:57 -0400
 
 libyuv (0.0~git20220427.de71c67-1) unstable; urgency=medium
 

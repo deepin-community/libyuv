@@ -1,0 +1,34 @@
+#!/bin/sh
+
+set -e 
+
+WORKDIR="${AUTOPKGTEST_TMP}"
+BUILD_OUTPUT_DIR="obj-$(dpkg-architecture -qDEB_HOST_GNU_TYPE)"
+find "${BUILD_OUTPUT_DIR}" -name '*_unittest' -exec cp -a -v {} "${WORKDIR}" \;
+
+# Execute testsuite
+cd "${WORKDIR}"
+ls "${WORKDIR}"
+errs=""
+
+for t in *_unittest ; do
+    echo "========== Running test ${t} =========="
+    if [ -x "./${t}" ]; then
+        rc=""
+        "./${t}" || rc="$?"
+        if [ -z "${rc}" ]; then
+            echo "=== OK ${t} ==="
+        else
+            echo "=== FAIL ${t} ==="
+            errs="${errs} ${t}"
+        fi
+    fi
+done
+
+if [ -n "$errs" ]; then
+    echo "Testsuite failed (${errs})"
+    exit 1
+else
+    echo "Testsuite passed"
+    exit 0
+fi

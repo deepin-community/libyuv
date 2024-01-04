@@ -1,0 +1,21 @@
+From: Boyuan Yang <byang@debian.org>
+Date: Tue, 20 Jun 2023 13:38:49 -0400
+Subject: Specify debian googletest dir
+
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 74265cb..5424475 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -61,7 +61,7 @@ endif()
+ if(UNIT_TEST)
+   find_library(GTEST_LIBRARY gtest)
+   if(GTEST_LIBRARY STREQUAL "GTEST_LIBRARY-NOTFOUND")
+-    set(GTEST_SRC_DIR /usr/src/gtest CACHE STRING "Location of gtest sources")
++    set(GTEST_SRC_DIR /usr/src/googletest/googletest CACHE STRING "Location of gtest sources")
+     if (CMAKE_CROSSCOMPILING)
+       set(GTEST_SRC_DIR third_party/googletest/src/googletest)
+     endif()

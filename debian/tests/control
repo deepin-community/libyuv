@@ -1,0 +1,4 @@
+Tests: testsuite
+Depends: @, @builddeps@
+Architecture: !armel !s390x !powerpc !ppc64 !sparc64
+Restrictions: build-needed, allow-stderr

@@ -1,1 +1,3 @@
-0001-CMakeList.txt-Apply-SONAME-and-multiarch.patch
+0001-CMakeLists.txt-Apply-SONAME-and-multiarch.patch
+0002-Specify-debian-googletest-dir.patch
+0003-CMakeLists.txt-Install-missing-yuvconstants-binary.patch
