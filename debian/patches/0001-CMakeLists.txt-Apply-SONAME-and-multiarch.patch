@@ -1,39 +1,40 @@
 From: Boyuan Yang <byang@debian.org>
-Date: Tue, 14 Sep 2021 16:24:53 -0400
-Subject: CMakeList.txt: Apply SONAME and multiarch
+Date: Tue, 20 Jun 2023 13:38:01 -0400
+Subject: CMakeLists.txt: Apply SONAME and multiarch
 
 ---
- CMakeLists.txt | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ CMakeLists.txt | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 636531e..ed01716 100644
+index 7a4a199..74265cb 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -3,9 +3,11 @@
  # Run with -DTEST=ON to build unit tests
  
  PROJECT ( YUV C CXX )	# "C" is required even for C++ projects
--CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
+-CMAKE_MINIMUM_REQUIRED( VERSION 2.8.12 )
 +CMAKE_MINIMUM_REQUIRED( VERSION 3.2 )
- OPTION( TEST "Built unit tests" OFF )
+ OPTION( UNIT_TEST "Built unit tests" OFF )
  
 +include(GNUInstallDirs)
 +
  SET ( ly_base_dir	${PROJECT_SOURCE_DIR} )
  SET ( ly_src_dir	${ly_base_dir}/source )
  SET ( ly_inc_dir	${ly_base_dir}/include )
-@@ -29,6 +31,9 @@ ADD_LIBRARY				( ${ly_lib_static} STATIC ${ly_source_files} )
- ADD_LIBRARY				( ${ly_lib_shared} SHARED ${ly_source_files} )
- SET_TARGET_PROPERTIES	( ${ly_lib_shared} PROPERTIES OUTPUT_NAME "${ly_lib_name}" )
- SET_TARGET_PROPERTIES	( ${ly_lib_shared} PROPERTIES PREFIX "lib" )
+@@ -37,6 +39,10 @@ if(WIN32)
+   SET_TARGET_PROPERTIES	( ${ly_lib_shared} PROPERTIES IMPORT_PREFIX "lib" )
+ endif()
+ 
 +# Debian-specific: for library version, use ${YUV_VERSION}
 +INCLUDE ( CM_linux_packages.cmake )
 +SET_TARGET_PROPERTIES	( ${ly_lib_shared} PROPERTIES VERSION ${YUV_VERSION} SOVERSION 0 )
- 
++
  # this creates the conversion tool
  ADD_EXECUTABLE			( yuvconvert ${ly_base_dir}/util/yuvconvert.cc )
-@@ -75,10 +80,10 @@ endif()
+ TARGET_LINK_LIBRARIES	( yuvconvert ${ly_lib_static} )
+@@ -94,10 +100,10 @@ endif()
  
  
  # install the conversion tool, .so, .a, and all the header files
@@ -42,7 +43,7 @@ index 636531e..ed01716 100644
 -INSTALL ( TARGETS ${ly_lib_shared} LIBRARY				DESTINATION lib RUNTIME DESTINATION bin )
 -INSTALL ( DIRECTORY ${PROJECT_SOURCE_DIR}/include/		DESTINATION include )
 +INSTALL ( PROGRAMS ${CMAKE_BINARY_DIR}/yuvconvert			DESTINATION ${CMAKE_INSTALL_BINDIR} )
-+INSTALL ( TARGETS ${ly_lib_static}						DESTINATION ${CMAKE_INSTALL_LIBDIR} )
++INSTALL ( TARGETS ${ly_lib_static}					DESTINATION ${CMAKE_INSTALL_LIBDIR} )
 +INSTALL ( TARGETS ${ly_lib_shared} LIBRARY				DESTINATION ${CMAKE_INSTALL_LIBDIR} RUNTIME DESTINATION bin )
 +INSTALL ( DIRECTORY ${PROJECT_SOURCE_DIR}/include/		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} )
  

@@ -4,7 +4,7 @@
 # export DH_VERBOSE=1
 
 # see FEATURE AREAS in dpkg-buildflags(1)
-export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all optimize=-lto
 
 # see ENVIRONMENT in dpkg-buildflags(1)
 # package maintainers to append CFLAGS
@@ -13,8 +13,30 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export DEB_LDFLAGS_MAINT_APPEND =
 
 %:
-	dh $@
+	dh $@ --buildsystem=cmake
 
 # https://github.com/archlinux/svntogit-community/blob/packages/libyuv/trunk/PKGBUILD
 execute_before_dh_auto_configure:
 	sed -i 's|yuvconvert $${JPEG_LIBRARY}|$${ly_lib_shared} $${JPEG_LIBRARY}|g' ./CMakeLists.txt
+
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+  LIBYUV_TEST_FLAG := ON
+else
+  LIBYUV_TEST_FLAG := OFF
+endif
+
+# Known broken googletest
+ifneq (,$(filter $(DEB_HOST_ARCH), armel s390x powerpc ppc64 sparc64))
+  LIBYUV_TEST_FLAG = OFF
+endif
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+	    -DUNIT_TEST=$(LIBYUV_TEST_FLAG) \
+	    $(NULL)
+
+execute_after_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	-find . -name libyuv_unittest
+	( exec $$(find . -name libyuv_unittest) )
+endif
