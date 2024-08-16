@@ -8,6 +8,8 @@
  *  be found in the AUTHORS file in the root of the source tree.
  */
 
+#include <assert.h>
+
 #include "libyuv/rotate.h"
 
 #include "libyuv/convert.h"
@@ -29,7 +31,8 @@ void TransposePlane(const uint8_t* src,
                     int width,
                     int height) {
   int i = height;
-#if defined(HAS_TRANSPOSEWX16_MSA) || defined(HAS_TRANSPOSEWX16_LSX)
+#if defined(HAS_TRANSPOSEWX16_MSA) || defined(HAS_TRANSPOSEWX16_LSX) || \
+    defined(HAS_TRANSPOSEWX16_NEON)
   void (*TransposeWx16)(const uint8_t* src, int src_stride, uint8_t* dst,
                         int dst_stride, int width) = TransposeWx16_C;
 #else
@@ -42,6 +45,14 @@ void TransposePlane(const uint8_t* src,
     TransposeWx8 = TransposeWx8_Any_NEON;
     if (IS_ALIGNED(width, 8)) {
       TransposeWx8 = TransposeWx8_NEON;
+    }
+  }
+#endif
+#if defined(HAS_TRANSPOSEWX16_NEON)
+  if (TestCpuFlag(kCpuHasNEON)) {
+    TransposeWx16 = TransposeWx16_Any_NEON;
+    if (IS_ALIGNED(width, 16)) {
+      TransposeWx16 = TransposeWx16_NEON;
     }
   }
 #endif
@@ -78,7 +89,8 @@ void TransposePlane(const uint8_t* src,
   }
 #endif
 
-#if defined(HAS_TRANSPOSEWX16_MSA) || defined(HAS_TRANSPOSEWX16_LSX)
+#if defined(HAS_TRANSPOSEWX16_MSA) || defined(HAS_TRANSPOSEWX16_LSX) || \
+    defined(HAS_TRANSPOSEWX16_NEON)
   // Work across the source in 16x16 tiles
   while (i >= 16) {
     TransposeWx16(src, src_stride, dst, dst_stride, width);
@@ -140,7 +152,9 @@ void RotatePlane180(const uint8_t* src,
                     int height) {
   // Swap top and bottom row and mirror the content. Uses a temporary row.
   align_buffer_64(row, width);
-  if (!row) return;
+  assert(row);
+  if (!row)
+    return;
   const uint8_t* src_bot = src + src_stride * (height - 1);
   uint8_t* dst_bot = dst + dst_stride * (height - 1);
   int half_height = (height + 1) >> 1;
@@ -275,7 +289,10 @@ void SplitTransposeUV(const uint8_t* src,
 #else
 #if defined(HAS_TRANSPOSEUVWX8_NEON)
   if (TestCpuFlag(kCpuHasNEON)) {
-    TransposeUVWx8 = TransposeUVWx8_NEON;
+    TransposeUVWx8 = TransposeUVWx8_Any_NEON;
+    if (IS_ALIGNED(width, 8)) {
+      TransposeUVWx8 = TransposeUVWx8_NEON;
+    }
   }
 #endif
 #if defined(HAS_TRANSPOSEUVWX8_SSE2)
@@ -544,20 +561,23 @@ static void RotatePlane180_16(const uint16_t* src,
                               int dst_stride,
                               int width,
                               int height) {
-  // Swap top and bottom row and mirror the content. Uses a temporary row.
-  align_buffer_64(row, width * 2);
-  if (!row) return;
-  uint16_t* row_bot = (uint16_t*) row;
   const uint16_t* src_bot = src + src_stride * (height - 1);
   uint16_t* dst_bot = dst + dst_stride * (height - 1);
   int half_height = (height + 1) >> 1;
   int y;
 
+  // Swap top and bottom row and mirror the content. Uses a temporary row.
+  align_buffer_64(row, width * 2);
+  uint16_t* row_tmp = (uint16_t*)row;
+  assert(row);
+  if (!row)
+    return;
+
   // Odd height will harmlessly mirror the middle row twice.
   for (y = 0; y < half_height; ++y) {
-    CopyRow_16_C(src, row_bot, width);        // Copy top row into buffer
-    MirrorRow_16_C(src_bot, dst, width);  // Mirror bottom row into top row
-    MirrorRow_16_C(row_bot, dst_bot, width);  // Mirror buffer into bottom row
+    CopyRow_16_C(src, row_tmp, width);        // Copy top row into buffer
+    MirrorRow_16_C(src_bot, dst, width);      // Mirror bottom row into top row
+    MirrorRow_16_C(row_tmp, dst_bot, width);  // Mirror buffer into bottom row
     src += src_stride;
     dst += dst_stride;
     src_bot -= src_stride;
