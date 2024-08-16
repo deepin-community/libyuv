@@ -26,13 +26,15 @@ else
 endif
 
 # Known broken googletest
-ifneq (,$(filter $(DEB_HOST_ARCH), armel s390x powerpc ppc64 sparc64))
+# hppa: requested in https://bugs.debian.org/1021606
+ifneq (,$(filter $(DEB_HOST_ARCH), armel hppa s390x powerpc ppc64 sparc64))
   LIBYUV_TEST_FLAG = OFF
 endif
 
 override_dh_auto_configure:
 	dh_auto_configure -- \
 	    -DUNIT_TEST=$(LIBYUV_TEST_FLAG) \
+	    -DGTEST_SRC_DIR=/usr/src/googletest/googletest \
 	    $(NULL)
 
 execute_after_dh_auto_test:

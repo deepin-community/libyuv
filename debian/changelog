@@ -1,3 +1,69 @@
+libyuv (0.0.1888.20240710-3) unstable; urgency=medium
+
+  * debian/rules: Disable tests on hppa as well due to broken support for
+    big-endian architecture. (Closes: #1021606)
+
+ -- Boyuan Yang <byang@debian.org>  Thu, 11 Jul 2024 10:33:57 -0400
+
+libyuv (0.0.1888.20240710-2) unstable; urgency=medium
+
+  * debian/patches/0004-Do-not-compile-AArch64-SME-kernels-for-now.patch:
+    Do not compile AArch64 SME kernels for arm64 since the current GCC seems
+    does not recognize feature modifier sme in '-march=armv9-a+sme'.
+    This fixes FTBFS on arm64 architecture with GCC 13.
+
+ -- Boyuan Yang <byang@debian.org>  Thu, 11 Jul 2024 00:10:31 -0400
+
+libyuv (0.0.1888.20240710-1) unstable; urgency=medium
+
+  * New upstream snapshot.
+
+ -- Boyuan Yang <byang@debian.org>  Wed, 10 Jul 2024 22:38:06 -0400
+
+libyuv (0.0.1888.20240607-1) unstable; urgency=medium
+
+  * New upstream snapshot.
+
+ -- Boyuan Yang <byang@debian.org>  Sat, 08 Jun 2024 18:52:58 -0400
+
+libyuv (0.0.1888.20240509-4) unstable; urgency=medium
+
+  * Really fix patch 0004 to fix the FTBFS on ARM architectures.
+
+ -- Boyuan Yang <byang@debian.org>  Thu, 16 May 2024 11:41:02 -0400
+
+libyuv (0.0.1888.20240509-3) unstable; urgency=medium
+
+  * Revise patch 0004 to really fix the FTBFS.
+
+ -- Boyuan Yang <byang@debian.org>  Tue, 14 May 2024 08:10:55 -0400
+
+libyuv (0.0.1888.20240509-2) unstable; urgency=medium
+
+  * d/p/0004-CMakeLists.txt-Do-not-enable-NEON-for-armel-armhf.patch:
+    Do not enable NEON for armel to avoid FTBFS. Also do not enable NEON
+    for armhf since Debian armhf does not guarantee it in the
+    architecture baseline.
+
+ -- Boyuan Yang <byang@debian.org>  Mon, 13 May 2024 23:42:13 -0400
+
+libyuv (0.0.1888.20240509-1) unstable; urgency=medium
+
+  * New upstream snapshot 20240509 (rev 1888).
+  * Revise versioning scheme due to broken date in the last upload.
+  * debian/watch: Adjust monitoring pretty rule accordingly.
+  * debian/patches/0002-googletest: Dropped, use variable override
+    in debian/rules instead.
+
+ -- Boyuan Yang <byang@debian.org>  Mon, 13 May 2024 21:43:17 -0400
+
+libyuv (0.0~git202401110.af6ac82-1) unstable; urgency=medium
+
+  * New upstream snapshot 20240110.
+  * debian/patches: Refresh patches.
+
+ -- Boyuan Yang <byang@debian.org>  Tue, 16 Jan 2024 07:12:33 -0500
+
 libyuv (0.0~git20231118.e6d5adb-1) unstable; urgency=medium
 
   * New upstream release 20231118.

@@ -1,5 +1,5 @@
 From: Boyuan Yang <byang@debian.org>
-Date: Tue, 20 Jun 2023 13:38:01 -0400
+Date: Tue, 16 Jan 2024 07:08:36 -0500
 Subject: CMakeLists.txt: Apply SONAME and multiarch
 
 ---
@@ -7,7 +7,7 @@ Subject: CMakeLists.txt: Apply SONAME and multiarch
  1 file changed, 11 insertions(+), 5 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 7a4a199..74265cb 100644
+index 3f521e3..e36c285 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -3,9 +3,11 @@
@@ -23,9 +23,9 @@ index 7a4a199..74265cb 100644
  SET ( ly_base_dir	${PROJECT_SOURCE_DIR} )
  SET ( ly_src_dir	${ly_base_dir}/source )
  SET ( ly_inc_dir	${ly_base_dir}/include )
-@@ -37,6 +39,10 @@ if(WIN32)
-   SET_TARGET_PROPERTIES	( ${ly_lib_shared} PROPERTIES IMPORT_PREFIX "lib" )
- endif()
+@@ -134,6 +136,10 @@ endif()
+ ADD_EXECUTABLE      ( cpuid ${ly_base_dir}/util/cpuid.c )
+ TARGET_LINK_LIBRARIES  ( cpuid ${ly_lib_static} )
  
 +# Debian-specific: for library version, use ${YUV_VERSION}
 +INCLUDE ( CM_linux_packages.cmake )
@@ -34,7 +34,7 @@ index 7a4a199..74265cb 100644
  # this creates the conversion tool
  ADD_EXECUTABLE			( yuvconvert ${ly_base_dir}/util/yuvconvert.cc )
  TARGET_LINK_LIBRARIES	( yuvconvert ${ly_lib_static} )
-@@ -94,10 +100,10 @@ endif()
+@@ -192,10 +198,10 @@ endif()
  
  
  # install the conversion tool, .so, .a, and all the header files
@@ -43,7 +43,7 @@ index 7a4a199..74265cb 100644
 -INSTALL ( TARGETS ${ly_lib_shared} LIBRARY				DESTINATION lib RUNTIME DESTINATION bin )
 -INSTALL ( DIRECTORY ${PROJECT_SOURCE_DIR}/include/		DESTINATION include )
 +INSTALL ( PROGRAMS ${CMAKE_BINARY_DIR}/yuvconvert			DESTINATION ${CMAKE_INSTALL_BINDIR} )
-+INSTALL ( TARGETS ${ly_lib_static}					DESTINATION ${CMAKE_INSTALL_LIBDIR} )
++INSTALL ( TARGETS ${ly_lib_static}						DESTINATION ${CMAKE_INSTALL_LIBDIR} )
 +INSTALL ( TARGETS ${ly_lib_shared} LIBRARY				DESTINATION ${CMAKE_INSTALL_LIBDIR} RUNTIME DESTINATION bin )
 +INSTALL ( DIRECTORY ${PROJECT_SOURCE_DIR}/include/		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} )
  
