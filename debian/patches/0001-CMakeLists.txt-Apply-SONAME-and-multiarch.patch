@@ -1,5 +1,5 @@
 From: Boyuan Yang <byang@debian.org>
-Date: Tue, 16 Jan 2024 07:08:36 -0500
+Date: Fri, 8 Nov 2024 08:03:55 -0500
 Subject: CMakeLists.txt: Apply SONAME and multiarch
 
 ---
@@ -7,45 +7,45 @@ Subject: CMakeLists.txt: Apply SONAME and multiarch
  1 file changed, 11 insertions(+), 5 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 3f521e3..e36c285 100644
+index 1b81f43..3f2b945 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -3,9 +3,11 @@
- # Run with -DTEST=ON to build unit tests
+@@ -5,9 +5,11 @@
+ include(CheckCSourceCompiles)
  
- PROJECT ( YUV C CXX )	# "C" is required even for C++ projects
--CMAKE_MINIMUM_REQUIRED( VERSION 2.8.12 )
-+CMAKE_MINIMUM_REQUIRED( VERSION 3.2 )
- OPTION( UNIT_TEST "Built unit tests" OFF )
+ project ( YUV C CXX )	# "C" is required even for C++ projects
+-cmake_minimum_required( VERSION 2.8.12 )
++cmake_minimum_required( VERSION 3.2 )
+ option( UNIT_TEST "Built unit tests" OFF )
  
 +include(GNUInstallDirs)
 +
- SET ( ly_base_dir	${PROJECT_SOURCE_DIR} )
- SET ( ly_src_dir	${ly_base_dir}/source )
- SET ( ly_inc_dir	${ly_base_dir}/include )
-@@ -134,6 +136,10 @@ endif()
- ADD_EXECUTABLE      ( cpuid ${ly_base_dir}/util/cpuid.c )
- TARGET_LINK_LIBRARIES  ( cpuid ${ly_lib_static} )
+ set ( ly_base_dir	${PROJECT_SOURCE_DIR} )
+ set ( ly_src_dir	${ly_base_dir}/source )
+ set ( ly_inc_dir	${ly_base_dir}/include )
+@@ -188,6 +190,10 @@ endif()
+ add_executable      ( cpuid ${ly_base_dir}/util/cpuid.c )
+ target_link_libraries  ( cpuid ${ly_lib_static} )
  
 +# Debian-specific: for library version, use ${YUV_VERSION}
-+INCLUDE ( CM_linux_packages.cmake )
-+SET_TARGET_PROPERTIES	( ${ly_lib_shared} PROPERTIES VERSION ${YUV_VERSION} SOVERSION 0 )
++include ( CM_linux_packages.cmake )
++set_target_properties( ${ly_lib_shared} PROPERTIES VERSION ${YUV_VERSION} SOVERSION 0 )
 +
  # this creates the conversion tool
- ADD_EXECUTABLE			( yuvconvert ${ly_base_dir}/util/yuvconvert.cc )
- TARGET_LINK_LIBRARIES	( yuvconvert ${ly_lib_static} )
-@@ -192,10 +198,10 @@ endif()
+ add_executable			( yuvconvert ${ly_base_dir}/util/yuvconvert.cc )
+ target_link_libraries	( yuvconvert ${ly_lib_static} )
+@@ -246,10 +252,10 @@ endif()
  
  
  # install the conversion tool, .so, .a, and all the header files
--INSTALL ( PROGRAMS ${CMAKE_BINARY_DIR}/yuvconvert			DESTINATION bin )
--INSTALL ( TARGETS ${ly_lib_static}						DESTINATION lib )
--INSTALL ( TARGETS ${ly_lib_shared} LIBRARY				DESTINATION lib RUNTIME DESTINATION bin )
--INSTALL ( DIRECTORY ${PROJECT_SOURCE_DIR}/include/		DESTINATION include )
-+INSTALL ( PROGRAMS ${CMAKE_BINARY_DIR}/yuvconvert			DESTINATION ${CMAKE_INSTALL_BINDIR} )
-+INSTALL ( TARGETS ${ly_lib_static}						DESTINATION ${CMAKE_INSTALL_LIBDIR} )
-+INSTALL ( TARGETS ${ly_lib_shared} LIBRARY				DESTINATION ${CMAKE_INSTALL_LIBDIR} RUNTIME DESTINATION bin )
-+INSTALL ( DIRECTORY ${PROJECT_SOURCE_DIR}/include/		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} )
+-install ( TARGETS yuvconvert DESTINATION bin )
+-install ( TARGETS ${ly_lib_static}						DESTINATION lib )
+-install ( TARGETS ${ly_lib_shared} LIBRARY DESTINATION lib RUNTIME DESTINATION bin ARCHIVE DESTINATION lib )
+-install ( DIRECTORY ${PROJECT_SOURCE_DIR}/include/		DESTINATION include )
++install ( TARGETS yuvconvert DESTINATION ${CMAKE_INSTALL_BINDIR} )
++install ( TARGETS ${ly_lib_static}						DESTINATION ${CMAKE_INSTALL_LIBDIR} )
++install ( TARGETS ${ly_lib_shared} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} RUNTIME DESTINATION bin ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} )
++install ( DIRECTORY ${PROJECT_SOURCE_DIR}/include/		DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} )
  
  # create the .deb and .rpm packages using cpack
- INCLUDE ( CM_linux_packages.cmake )
+ include ( CM_linux_packages.cmake )

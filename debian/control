@@ -10,10 +10,13 @@ Build-Depends:
  googletest <!nocheck>,
  libjpeg-dev,
 Rules-Requires-Root: no
-Standards-Version: 4.6.2
+Standards-Version: 4.7.0
 Homepage: https://chromium.googlesource.com/libyuv/libyuv/
 Vcs-Git: https://salsa.debian.org/debian/libyuv.git
 Vcs-Browser: https://salsa.debian.org/debian/libyuv
+Description: Library for YUV scaling
+ libyuv is an open source project that includes YUV scaling and
+ conversion functionality.
 
 Package: libyuv-dev
 Section: libdevel
@@ -22,9 +25,8 @@ Multi-Arch: same
 Depends:
  libyuv0 (= ${binary:Version}),
  ${misc:Depends},
-Description: Library for YUV scaling (development files)
- libyuv is an open source project that includes YUV scaling and
- conversion functionality.
+Description: ${source:Synopsis} (development files)
+ ${source:Extended-Description}
  .
  This package provides the development files.
 
@@ -34,9 +36,8 @@ Depends:
  libyuv0 (= ${binary:Version}),
  ${misc:Depends},
  ${shlibs:Depends},
-Description: Library for YUV scaling (utilities)
- libyuv is an open source project that includes YUV scaling and
- conversion functionality.
+Description: ${source:Synopsis} (utilities)
+ ${source:Extended-Description}
  .
  This package provides utilities provided by the library, including
  yuvconvert.
@@ -53,8 +54,7 @@ Conflicts:
  libyuv,
 Replaces:
  libyuv,
-Description: Library for YUV scaling (shared library)
- libyuv is an open source project that includes YUV scaling and
- conversion functionality.
+Description: ${source:Synopsis} (shared library)
+ ${source:Extended-Description}
  .
  This package provides the shared library.
