@@ -1,3 +1,17 @@
+libyuv (0.0.1904.20250204-1deepin1) unstable; urgency=medium
+
+  * Fix loong64 UV subsample 4-pixel rounding average (upstream
+    eb4e4736)
+  * Backport upstream fix for UV chroma subsampling rounding on
+    LoongArch LSX/LASX
+  * Replace vavgr with (sum+2)>>2 to match C reference and update
+    coefficients
+  * Fixes 70 unit test failures on loongarch64 (ARGBToI420, ABGRToI420
+    etc.)
+  * Origin: https://chromium.googlesource.com/libyuv/libyuv/+/eb4e4736
+
+ -- lichenggang <lichenggang@deepin.org>  Fri, 31 Jul 2026 14:32:27 +0800
+
 libyuv (0.0.1904.20250204-1) unstable; urgency=medium
 
   * New upstream snapshot.
