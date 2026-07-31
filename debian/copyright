@@ -32,9 +32,8 @@ Comment:
  of the date such litigation is filed.
 
 Files: debian/*
-Copyright: Boyuan Yang <byang@debian.org>
-License: public-domain
- These files are release to the public domain.
+Copyright: 2023 Boyuan Yang <byang@debian.org>
+License: BSD-3-Clause or public-domain
 
 Files: infra/config/PRESUBMIT.py
 Copyright: 2018 The PDFium Authors
@@ -68,3 +67,6 @@ License: BSD-3-Clause
  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+License: public-domain
+ These files are released to the public domain.
