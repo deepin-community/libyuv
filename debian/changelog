@@ -1,3 +1,59 @@
+libyuv (0.0.1904.20250204-1deepin1) unstable; urgency=medium
+
+  * Fix loong64 UV subsample 4-pixel rounding average (upstream
+    eb4e4736)
+  * Backport upstream fix for UV chroma subsampling rounding on
+    LoongArch LSX/LASX
+  * Replace vavgr with (sum+2)>>2 to match C reference and update
+    coefficients
+  * Fixes 70 unit test failures on loongarch64 (ARGBToI420, ABGRToI420
+    etc.)
+  * Origin: https://chromium.googlesource.com/libyuv/libyuv/+/eb4e4736
+
+ -- lichenggang <lichenggang@deepin.org>  Fri, 31 Jul 2026 14:32:27 +0800
+
+libyuv (0.0.1904.20250204-1) unstable; urgency=medium
+
+  * New upstream snapshot.
+  * debian/libyuv0.shlibs: Bump minimum required version.
+
+ -- Boyuan Yang <byang@debian.org>  Thu, 06 Feb 2025 14:43:25 -0500
+
+libyuv (0.0.1899.20250103-1) unstable; urgency=medium
+
+  * New upstream snapshot.
+
+ -- Boyuan Yang <byang@debian.org>  Mon, 06 Jan 2025 12:18:19 -0500
+
+libyuv (0.0.1898.20241219-1) unstable; urgency=medium
+
+  * New upstream snapshot.
+
+ -- Boyuan Yang <byang@debian.org>  Thu, 19 Dec 2024 16:53:27 -0500
+
+libyuv (0.0.1898.20241125-1) unstable; urgency=medium
+
+  * New upstream snapshot.
+  * debian/libyuv0.shlibs: Bump minimum required version.
+
+ -- Boyuan Yang <byang@debian.org>  Tue, 26 Nov 2024 18:38:44 -0500
+
+libyuv (0.0.1897.20241115-1) unstable; urgency=medium
+
+  * New upstream snapshot.
+
+ -- Boyuan Yang <byang@debian.org>  Sat, 16 Nov 2024 17:39:22 -0500
+
+libyuv (0.0.1888.20241107-1) unstable; urgency=medium
+
+  * New upstream snapshot.
+  * debian/control: Move package description to source package section.
+  * debian/patches: Refresh patches.
+  * debian/patches/0004-Do-not-compile-AArch64-SME-kernels-for-now.patch:
+    Dropped for now to make a test build.
+
+ -- Boyuan Yang <byang@debian.org>  Fri, 08 Nov 2024 08:31:45 -0500
+
 libyuv (0.0.1888.20240710-3) unstable; urgency=medium
 
   * debian/rules: Disable tests on hppa as well due to broken support for
