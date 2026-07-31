@@ -1,3 +1,9 @@
+libyuv (0.0.1949.20260706-1deepin1) unstable; urgency=medium
+
+  * update debhelper=13
+
+ -- lichenggang <lichenggang@deepin.org>  Fri, 31 Jul 2026 14:57:12 +0800
+
 libyuv (0.0.1949.20260706-1) unstable; urgency=medium
 
   * New upstream snapshot.
