@@ -15,7 +15,7 @@ export DEB_LDFLAGS_MAINT_APPEND =
 %:
 	dh $@ --buildsystem=cmake
 
-# https://github.com/archlinux/svntogit-community/blob/packages/libyuv/trunk/PKGBUILD
+# https://gitlab.archlinux.org/archlinux/packaging/packages/libyuv/-/blob/main/PKGBUILD
 execute_before_dh_auto_configure:
 	sed -i 's|yuvconvert $${JPEG_LIBRARY}|$${ly_lib_shared} $${JPEG_LIBRARY}|g' ./CMakeLists.txt
 

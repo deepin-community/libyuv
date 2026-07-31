@@ -16,15 +16,15 @@
 
 namespace libyuv {
 
-void TestRotateBpp(int src_width,
-                   int src_height,
-                   int dst_width,
-                   int dst_height,
-                   libyuv::RotationMode mode,
-                   int benchmark_iterations,
-                   int disable_cpu_flags,
-                   int benchmark_cpu_info,
-                   const int kBpp) {
+static void TestRotateBpp(int src_width,
+                          int src_height,
+                          int dst_width,
+                          int dst_height,
+                          libyuv::RotationMode mode,
+                          int benchmark_iterations,
+                          int disable_cpu_flags,
+                          int benchmark_cpu_info,
+                          const int kBpp) {
   if (src_width < 1) {
     src_width = 1;
   }
@@ -75,7 +75,7 @@ void TestRotateBpp(int src_width,
 
   // Rotation should be exact.
   for (int i = 0; i < dst_argb_plane_size; ++i) {
-    EXPECT_EQ(dst_argb_c[i], dst_argb_opt[i]);
+    ASSERT_EQ(dst_argb_c[i], dst_argb_opt[i]);
   }
 
   free_aligned_buffer_page_end(dst_argb_c);
@@ -189,35 +189,35 @@ TEST_F(LibYUVRotateTest, RotatePlane90_TestStride) {
   align_buffer_page_end(src_argb, argb_plane_size);
   align_buffer_page_end(dst_argb, argb_plane_size);
 
-  EXPECT_EQ(0, ARGBRotate(src_argb, benchmark_width_ * 4, dst_argb,
+  ASSERT_EQ(0, ARGBRotate(src_argb, benchmark_width_ * 4, dst_argb,
                           benchmark_width_ * 4, benchmark_width_,
                           benchmark_height_, kRotate0));
 
-  EXPECT_EQ(0, ARGBRotate(src_argb, benchmark_width_ * 4 - 1, dst_argb,
+  ASSERT_EQ(0, ARGBRotate(src_argb, benchmark_width_ * 4 - 1, dst_argb,
                           benchmark_width_ * 4 - 1, benchmark_width_ - 1,
                           benchmark_height_, kRotate0));
 
-  EXPECT_EQ(0, ARGBRotate(src_argb, benchmark_width_ * 4, dst_argb,
+  ASSERT_EQ(0, ARGBRotate(src_argb, benchmark_width_ * 4, dst_argb,
                           benchmark_width_ * 4, benchmark_width_,
                           benchmark_height_, kRotate180));
 
-  EXPECT_EQ(0, ARGBRotate(src_argb, benchmark_width_ * 4 - 1, dst_argb,
+  ASSERT_EQ(0, ARGBRotate(src_argb, benchmark_width_ * 4 - 1, dst_argb,
                           benchmark_width_ * 4 - 1, benchmark_width_ - 1,
                           benchmark_height_, kRotate180));
 
-  EXPECT_EQ(0, ARGBRotate(src_argb, benchmark_width_ * 4, dst_argb,
+  ASSERT_EQ(0, ARGBRotate(src_argb, benchmark_width_ * 4, dst_argb,
                           abs(benchmark_height_) * 4, benchmark_width_,
                           benchmark_height_, kRotate90));
 
-  EXPECT_EQ(-1, ARGBRotate(src_argb, benchmark_width_ * 4 - 1, dst_argb,
+  ASSERT_EQ(-1, ARGBRotate(src_argb, benchmark_width_ * 4 - 1, dst_argb,
                            abs(benchmark_height_) * 4, benchmark_width_ - 1,
                            benchmark_height_, kRotate90));
 
-  EXPECT_EQ(0, ARGBRotate(src_argb, benchmark_width_ * 4, dst_argb,
+  ASSERT_EQ(0, ARGBRotate(src_argb, benchmark_width_ * 4, dst_argb,
                           abs(benchmark_height_) * 4, benchmark_width_,
                           benchmark_height_, kRotate270));
 
-  EXPECT_EQ(-1, ARGBRotate(src_argb, benchmark_width_ * 4 - 1, dst_argb,
+  ASSERT_EQ(-1, ARGBRotate(src_argb, benchmark_width_ * 4 - 1, dst_argb,
                            abs(benchmark_height_) * 4, benchmark_width_ - 1,
                            benchmark_height_, kRotate270));
 
@@ -271,7 +271,7 @@ static void TestRotatePlane_16(int src_width,
 
   // Rotation should be exact.
   for (int i = 0; i < dst_plane_size; ++i) {
-    EXPECT_EQ(dst_c[i], dst_opt[i]);
+    ASSERT_EQ(dst_c[i], dst_opt[i]);
   }
 
   free_aligned_buffer_page_end_16(dst_c);
